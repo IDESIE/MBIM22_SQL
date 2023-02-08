@@ -117,7 +117,15 @@ Nombres de espacios y volumen
 pero como volumen una etiqueta que indique 
 'BAJO' si es menor a 10, 'ALTO' si es mayor a 1000
 y 'MEDIO' si está entre medias
-*/
+*/SELECT 
+    NAME, 
+    VOLUME,
+    CASE
+        WHEN VOLUME < 10 THEN 'BAJO'
+        WHEN VOLUME > 1000 THEN 'ALTO'
+        ELSE 'MEDIO'
+    END TEXTO
+FROM SPACES;
 
 /* 26
 Nombre, fecha de instalación, fecha de garantia
@@ -132,7 +140,12 @@ del floorid 1
 
 /* 28
 Lista de espacios que no son Aula del floorid = 1
-*/
+*/SELECT
+   NAME
+FROM
+    SPACES
+WHERE FLOORID = 1 and lower(NAME) not like '%aula%' 
+order by 1 desc;
 
 /* 29
 Lista de los tipos de componentes que tienen duracion de la garantia de las partes
