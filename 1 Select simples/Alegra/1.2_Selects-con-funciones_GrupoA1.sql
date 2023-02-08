@@ -12,7 +12,6 @@ la palabra "de", el mes en minúscula en palabras, la palabra "de", el año en c
 finalizando con un punto. Luego la hora en formato 24h con minutos y segundos.
 Y de etiqueta del campo "Fecha actual".
 */
-asdfasdfasdfasdfasdfasdf
 /* 2
 Día en palabras de cuando se instalaron los componentes
 del facility 1
