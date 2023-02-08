@@ -118,6 +118,13 @@ pero como volumen una etiqueta que indique
 'BAJO' si es menor a 10, 'ALTO' si es mayor a 1000
 y 'MEDIO' si está entre medias
 */
+select 
+    name, floorid
+from
+    spaces
+where 
+    floorid= 1 and lower(name) not like '%aula%'
+order by 1 desc;
 
 /* 26
 Nombre, fecha de instalación, fecha de garantia
@@ -133,6 +140,13 @@ del floorid 1
 /* 28
 Lista de espacios que no son Aula del floorid = 1
 */
+select 
+    name, floorid
+from
+    spaces
+where 
+    floorid= 1 and lower(name) not like '%aula%'
+order by 1 desc;
 
 /* 29
 Lista de los tipos de componentes que tienen duracion de la garantia de las partes
