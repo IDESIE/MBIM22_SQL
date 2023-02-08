@@ -152,6 +152,13 @@ del floorid 1
 Lista de espacios que no son Aula del floorid = 1
 */
 
+select 
+    name,floorid
+from spaces
+    where floorid = 1
+    and name not like '%Aula%'
+;
+
 /* 29
 Lista de los tipos de componentes que tienen duracion de la garantia de las partes
 del facility 1
@@ -166,6 +173,13 @@ del facility 1
 Lista de los tipos de componentes que tienen en el nombre un guión bajo
 del facility 1
 */
+
+select 
+    name
+from component_types
+where facilityid = 1
+and name like '%@_%' escape '@'
+;
 
 --
 ------------------------------------------------------------------------------------------------
