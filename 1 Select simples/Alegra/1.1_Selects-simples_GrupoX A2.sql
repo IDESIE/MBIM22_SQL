@@ -98,6 +98,14 @@ Nombre, código de activo, número de serie de los componentes
 que tengan número de serie del facility 1
 */
 
+select
+    name,assetidentifier, serialnumber
+from components
+where facilityid=1
+and serialnumber is not null
+;
+
+
 /* 22
 Nombre de los espacios que empiezan por la letra A donde floorid = 1
 */
@@ -118,6 +126,16 @@ pero como volumen una etiqueta que indique
 'BAJO' si es menor a 10, 'ALTO' si es mayor a 1000
 y 'MEDIO' si está entre medias
 */
+select 
+    name, 
+    volume, 
+    case 
+        when volume < 10 then 'Bajo'
+        when volume > 1000 Then 'Alto'
+        else 'Medio'
+    end texto
+from spaces;
+
 
 /* 26
 Nombre, fecha de instalación, fecha de garantia
