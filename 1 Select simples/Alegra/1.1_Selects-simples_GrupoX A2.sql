@@ -17,6 +17,8 @@ Datos de la tabla components
 Datos de la tabla component_types
 */
 
+desc component_types;
+
 /* 5
 Id, nombre de los facilities
 */
@@ -24,6 +26,10 @@ Id, nombre de los facilities
 /* 6
 Nombre, elevación e id del facility de las plantas
 */
+
+select
+    name,elevation, id
+from floors;
 
 /* 7
 Nombre, area bruta, volumen de los espacios
@@ -51,6 +57,12 @@ Nombre y fecha de instalación de los componentes del espacio 60 ordenados desce
 Listar las distintas fechas de instalación de los componentes del facility 1 ordenados descendentemente.
 */
 
+select
+    installatedon
+from components
+where facilityid = 1
+order by installatedon desc;
+
 /* 13
 Listar los distintos GUIDs de los componentes del facility 1 ordenados ascendentemente por fecha de garantía.
 */
@@ -69,6 +81,12 @@ ordenados por código de activo descendentemente.
 Códigos de activo de los componentes del espacio con id 21
 ordenados por código de activo descendentemente.
 */
+
+select
+    assetidentifier
+from components
+where spaceid = 1
+order by assetidentifier desc;
 
 /* 17
 Las distintas fechas de instalación de los componentes 
@@ -102,8 +120,7 @@ select
     name,assetidentifier, serialnumber
 from components
 where facilityid=1
-and serialnumber is not null
-;
+and serialnumber is not null;
 
 
 /* 22
@@ -148,6 +165,11 @@ Lista de nombres de espacio que su id no es 4, 9, ni 19
 del floorid 1
 */
 
+select
+    name
+from spaces
+where floorid=1 and id not in (4,9,19);
+
 /* 28
 Lista de espacios que no son Aula del floorid = 1
 */select name, floorid from spaces where floorid = 1 and name not like 'Aula%' order by 1 desc
@@ -178,8 +200,7 @@ select
     name
 from component_types
 where facilityid = 1
-and name like '%@_%' escape '@'
-;
+and name like '%@_%' escape '@';
 
 --
 ------------------------------------------------------------------------------------------------

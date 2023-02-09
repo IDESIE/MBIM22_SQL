@@ -41,6 +41,15 @@ Solo la parte entera, sin decimales ni redondeo.
 Cuántos componentes hay, cuántos tienen fecha inicio de garantia, cuántos tienen espacio, y en cuántos espacios hay componentes
 en el facility 1.
 */
+select 
+    count(*)NumComponentes, 
+    count(warrantystarton)TienenFechaGarantia, 
+    count(spaceid)TienenEspacio, 
+    count(distinct (spaceid)) NumEspacios
+from 
+    components 
+where 
+    facilityid=1;
 
 /* 7
 Mostrar cuántos espacios tienen el texto 'Aula' en el nombre
