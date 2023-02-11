@@ -42,6 +42,16 @@ Nombre de los espacios de la Planta 1 del facility 1
 /*Previamente se consulta cuál es el floorid
 listando los */
 
+SELECT
+    NAME, FLOORID
+FROM SPACES
+WHERE FLOORID = (
+    SELECT ID
+    FROM FLOORS
+    WHERE
+    NAME='Planta +1'
+    and facilityid = 1);
+
 /* 10
 Nombre, número de modelo del tipo de componente con id = 60
 */
@@ -131,6 +141,16 @@ pero como volumen una etiqueta que indique
 'BAJO' si es menor a 10, 'ALTO' si es mayor a 1000
 y 'MEDIO' si está entre medias
 */
+
+select 
+    name, 
+    volume,
+    case
+        when volume < 10 then 'BAJO'
+        when volume > 1000  then 'ALTO'
+        else 'MEDIO'
+    end texto
+from spaces;
 
 /* 26
 Nombre, fecha de instalación, fecha de garantia
