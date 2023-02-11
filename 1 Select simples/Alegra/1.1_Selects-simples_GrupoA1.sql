@@ -16,7 +16,8 @@ Datos de la tabla components
 /* 4
 Datos de la tabla component_types
 */
-
+SELECT *
+FROM COMPONENT_TYPES;
 /* 5
 Id, nombre de los facilities
 */
@@ -32,7 +33,9 @@ Nombre, area bruta, volumen de los espacios
 /* 8
 Nombre, vida útil de los tipos de componentes del facility 1
 */
-
+SELECT NAME "NOMBRE DEL TIPO DE COMPONENTE", EXPECTEDLIFE "VIDA ÚTIL"
+FROM COMPONENT_TYPES
+WHERE FACILITYID = 1;
 /* 9
 Nombre de los espacios de la Planta 1 del facility 1
 */
@@ -50,7 +53,11 @@ Nombre y fecha de instalación de los componentes del espacio 60 ordenados desce
 /* 12
 Listar las distintas fechas de instalación de los componentes del facility 1 ordenados descendentemente.
 */
-
+SELECT COUNT(ID)"CANTIDAD DE COMPONENTES", TO_CHAR (INSTALLATEDON, 'DD-MM-YYYY')"FECHA DE INSTALACIÓN"
+FROM COMPONENTS
+WHERE FACILITYID = 1
+GROUP BY TO_CHAR (INSTALLATEDON, 'YYYY-MM-DD'), TO_CHAR (INSTALLATEDON, 'DD-MM-YYYY')
+ORDER BY TO_CHAR (INSTALLATEDON, 'YYYY-MM-DD') DESC;
 /* 13
 Listar los distintos GUIDs de los componentes del facility 1 ordenados ascendentemente por fecha de garantía.
 */
@@ -69,7 +76,10 @@ ordenados por código de activo descendentemente.
 Códigos de activo de los componentes del espacio con id 21
 ordenados por código de activo descendentemente.
 */
-
+SELECT ASSETIDENTIFIER "CÓDIGO DE ACTIVO", NAME "NOMBRE DEL COMPONENTE"
+FROM COMPONENTS 
+WHERE SPACEID = 21
+ORDER BY ASSETIDENTIFIER DESC;
 /* 17
 Las distintas fechas de instalación de los componentes 
 de los espacios con id 10, 12, 16, 19 
@@ -92,7 +102,10 @@ Nombre, código de activo, número de serie de los componentes
 que no tengan espacio del facility 1
 ordenados descendentemente por código de activo
 */
-
+SELECT NAME "NOMBRE DEL COMPONENTE", ASSETIDENTIFIER "CÓDIGO DE ACTIVO", SERIALNUMBER "NÚMERO DE SERIE"
+FROM COMPONENTS 
+WHERE SPACEID = NULL AND FACILITYID = 1
+ORDER BY 2 DESC;
 /* 21
 Nombre, código de activo, número de serie de los componentes
 que tengan número de serie del facility 1
@@ -111,7 +124,7 @@ Lista de tipos de componente del facility 1
 donde el nombre contiene el texto 'con'
 y no tienen vida útil indicada o fecha de garantia 
 */
-
+falta
 /* 25
 Nombres de espacios y volumen
 pero como volumen una etiqueta que indique 
@@ -133,7 +146,9 @@ del floorid 1
 /* 28
 Lista de espacios que no son Aula del floorid = 1
 */
-
+SELECT NAME "ESPACIOS"
+FROM SPACES
+WHERE NAME NOT LIKE '%Aula%' AND FLOORID = 1;
 /* 29
 Lista de los tipos de componentes que tienen duracion de la garantia de las partes
 del facility 1
