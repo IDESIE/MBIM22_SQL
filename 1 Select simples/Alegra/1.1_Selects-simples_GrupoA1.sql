@@ -133,8 +133,12 @@ Lista de espacios que su segunda letra es una 's' donde floorid = 1
 Lista de tipos de componente del facility 1 
 donde el nombre contiene el texto 'con'
 y no tienen vida útil indicada o fecha de garantia 
-*/
-falta
+*/ CREO QUE ESTÁ MAL
+SELECT NAME
+FROM COMPONENT_TYPES
+WHERE FACILITYID = 1 AND NAME LIKE %con% AND EXPECTEDLIFE = NULL OR WARRANTYDURATIONPARTS = NULL;
+SELECT WARRANTYDURATIONPARTS
+FROM COMPONENT_TYPES;
 /* 25
 Nombres de espacios y volumen
 pero como volumen una etiqueta que indique 
