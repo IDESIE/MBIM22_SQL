@@ -58,10 +58,11 @@ Listar las distintas fechas de instalación de los componentes del facility 1 or
 */
 
 select
-    installatedon
+    to_char(installatedon,'yyyy-mm')
 from components
 where facilityid = 1
-order by installatedon desc;
+group by to_char(installatedon,'yyyy-mm')
+order by to_char(installatedon,'yyyy-mm') desc;
 
 /* 13
 Listar los distintos GUIDs de los componentes del facility 1 ordenados ascendentemente por fecha de garantía.
@@ -85,7 +86,7 @@ ordenados por código de activo descendentemente.
 select
     assetidentifier
 from components
-where spaceid = 1
+where spaceid = 21
 order by assetidentifier desc;
 
 /* 17
