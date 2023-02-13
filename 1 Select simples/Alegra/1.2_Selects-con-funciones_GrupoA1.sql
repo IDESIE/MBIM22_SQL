@@ -135,7 +135,13 @@ Pasi 4
 Cuántos componentes de instalaron un Jueves
 en el facilityid 1
 */
-
+select
+    count(to_char(installatedon,'d')) InstaladosJueves
+from
+    components
+where
+    facilityid = 1 and
+    to_char(installatedon,'d') = 4;
 /*15
 Listar el id de planta concatenado con un guión
 seguido del id de espacio concatenado con un guión
