@@ -148,7 +148,7 @@ NAME LIKE '_s%';
 Lista de tipos de componente del facility 1 
 donde el nombre contiene el texto 'con'
 y no tienen vida útil indicada o fecha de garantia 
-*/ CREO QUE ESTÁ MAL
+*/ 
 SELECT NAME
 FROM COMPONENT_TYPES
 WHERE FACILITYID = 1 AND NAME LIKE %con% AND EXPECTEDLIFE = NULL OR WARRANTYDURATIONPARTS = NULL;
