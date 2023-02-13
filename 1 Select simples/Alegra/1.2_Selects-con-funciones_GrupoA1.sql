@@ -16,7 +16,14 @@ Y de etiqueta del campo "Fecha actual".
 Día en palabras de cuando se instalaron los componentes
 del facility 1
 */
-
+select
+    id,
+    name nombre,
+    to_char(installatedon,'day') DiaInstalacion
+from
+    components
+where
+    facilityid = 1;
 /* 3
 De los espacios, obtener la suma de áreas, cuál es el mínimo, el máximo y la media de áreas
 del floorid 1. Redondeado a dos dígitos.
@@ -40,7 +47,15 @@ Solo la parte entera, sin decimales ni redondeo.
 Cuántos componentes hay, cuántos tienen fecha inicio de garantia, cuántos tienen espacio, y en cuántos espacios hay componentes
 en el facility 1.
 */
-
+select
+    count(id) NumComponentes,
+    count(warrantystarton) FechadeGarantía,
+    count(spaceid) Espacio,
+    count(Distinct spaceid) NumEspacios
+from
+    components
+where
+    facilityid = 1;
 /* 7
 Mostrar cuántos espacios tienen el texto 'Aula' en el nombre
 del facility 1.
@@ -73,7 +88,15 @@ Fecha   Componentes
 2021-03-23 34
 2021-03-03 232
 */
-
+select
+    to_char(installatedon,'YYYY-MM-DD') FechaInstalacion,
+    count(id) NumComponentes
+from
+    components
+where
+    facilityid = 1
+group by installatedon
+order by 1 desc;
 /* 11
 Un listado por año del número de componentes instalados del facility 1
 ordenados descendentemente por año.
