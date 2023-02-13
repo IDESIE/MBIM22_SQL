@@ -84,7 +84,7 @@ Listar los distintos GUIDs de los componentes del facility 1 ordenados ascendent
 Id, código de activo, GUID, número de serie y nombre de los componentes cuyo spaceid está entre 10 y 27 inclusive
 ordenados por id de espacio descendentemente.
 */
-select id,assetidentifier, externalidentifier, name, spaceid
+select id,assetidentifier, externalidentifier, serialnumber, name
 from COMPONENTS
     where spaceid >=10 and spaceid <=27
     order by spaceid desc;
