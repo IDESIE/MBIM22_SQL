@@ -122,6 +122,16 @@ Sábado   	404
 Domingo  	431
 */
 
+select
+    to_char(installatedon,'Day') Día,
+    count(id) Componentes
+from
+    components
+where
+    facilityid = 1
+group by to_char(installatedon,'d'), to_char(installatedon,'Day')
+order by (to_char(installatedon,'d'));
+
 /*13
 Mostrar en base a los cuatro primeros caracteres del nombre cuántos espacios hay
 del floorid 1 ordenados ascendentemente por el nombre.
