@@ -33,6 +33,9 @@ Nombre, area bruta, volumen de los espacios
 /* 8
 Nombre, vida útil de los tipos de componentes del facility 1
 */
+SELECT NAME "NOMBRE DEL TIPO DE COMPONENTE", EXPECTEDLIFE "VIDA ÚTIL"
+FROM COMPONENT_TYPES
+WHERE FACILITYID = 1;
 
 /* 9
 Nombre de los espacios de la Planta 1 del facility 1
@@ -51,6 +54,11 @@ Nombre y fecha de instalación de los componentes del espacio 60 ordenados desce
 /* 12
 Listar las distintas fechas de instalación de los componentes del facility 1 ordenados descendentemente.
 */
+SELECT DISTINCT installatedon 
+FROM components 
+WHERE facilityid = 1 
+ORDER BY installatedon DESC;
+
 
 /* 13
 Listar los distintos GUIDs de los componentes del facility 1 ordenados ascendentemente por fecha de garantía.
