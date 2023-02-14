@@ -16,6 +16,7 @@ Datos de la tabla components
 /* 4
 Datos de la tabla component_types
 */
+SELECT * FROM COMPONENT_TYPES;
 
 /* 5
 Id, nombre de los facilities
