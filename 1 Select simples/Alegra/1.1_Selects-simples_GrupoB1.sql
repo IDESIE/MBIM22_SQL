@@ -78,6 +78,11 @@ ordenados por código de activo descendentemente.
 Códigos de activo de los componentes del espacio con id 21
 ordenados por código de activo descendentemente.
 */
+SELECT ASSETIDENTIFIER "CÓDIGO DE ACTIVO", NAME "NOMBRE DEL COMPONENTE"
+FROM COMPONENTS 
+WHERE SPACEID = 21
+ORDER BY ASSETIDENTIFIER DESC;
+
 
 /* 17
 Las distintas fechas de instalación de los componentes 
