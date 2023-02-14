@@ -58,11 +58,10 @@ Listar las distintas fechas de instalación de los componentes del facility 1 or
 */
 
 select
-    to_char(installatedon,'yyyy-mm')
+    distinct installatedon
 from components
 where facilityid = 1
-group by to_char(installatedon,'yyyy-mm')
-order by to_char(installatedon,'yyyy-mm') desc;
+order by installatedon desc;
 
 /* 13
 Listar los distintos GUIDs de los componentes del facility 1 ordenados ascendentemente por fecha de garantía.
