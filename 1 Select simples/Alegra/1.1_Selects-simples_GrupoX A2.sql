@@ -219,6 +219,11 @@ de los componentes del facility 1
 que tienen fecha de garantia
 */
 
+select
+    facilityid, name, installatedon "FECHA DE INSTALACIÓN", warrantystarton "FECHA DE GARANTÍA"
+from components
+where facilityid = 1 and warrantystarton is not null;
+
 /* 27
 Lista de nombres de espacio que su id no es 4, 9, ni 19
 del floorid 1
@@ -237,8 +242,7 @@ select
     name,floorid
 from spaces
     where floorid = 1
-    and name not like '%Aula%'
-;
+    and name not like '%Aula%';
 
 /* 29
 Lista de los tipos de componentes que tienen duracion de la garantia de las partes
