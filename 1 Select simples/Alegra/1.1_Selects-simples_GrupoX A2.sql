@@ -9,6 +9,8 @@ Describir la tabla floors
 Describir la tabla spaces
 */
 
+desc spaces;
+
 /* 3
 Datos de la tabla components
 */
@@ -22,6 +24,10 @@ desc component_types;
 /* 5
 Id, nombre de los facilities
 */
+
+select 
+    id, name NOMBRE
+from facilities;
 
 /* 6
 Nombre, elevación e id del facility de las plantas
@@ -49,6 +55,11 @@ listando los */
 Nombre, número de modelo del tipo de componente con id = 60
 */
 
+select
+    id, name NOMBRE, modelnumber NUMMODELO
+from component_types 
+where id = 60;
+
 /* 11
 Nombre y fecha de instalación de los componentes del espacio 60 ordenados descendentemente por la fecha de instalación
 */
@@ -71,6 +82,12 @@ Listar los distintos GUIDs de los componentes del facility 1 ordenados ascendent
 Id, código de activo, GUID, número de serie y nombre de los componentes cuyo spaceid está entre 10 y 27 inclusive
 ordenados por id de espacio descendentemente.
 */
+
+select 
+    spaceid, id, externalidentifier, assetidentifier, serialnumber, name
+from components
+where spaceid between 10 and 27
+order by spaceid desc;
 
 /* 15
 Id, código de activo, GUID, número de serie y nombre de los componentes del facility 1 
@@ -100,6 +117,12 @@ cuyo volumen es mayor a 90 de floorid = 1
 ordenados por volumen descendentemente
 */
 
+select
+    floorid, name NOMBRE, volume VOLUMEN
+from spaces
+where floorid = 1 and volume >90
+order by volume desc;
+
 /* 19
 Nombre, volumen de los espacios
 cuyo volumen es mayor a 6 y menor a 9 de la planta con id = 1
@@ -110,6 +133,12 @@ Nombre, código de activo, número de serie de los componentes
 que no tengan espacio del facility 1
 ordenados descendentemente por código de activo
 */
+
+select 
+    spaceid, facilityid, name "Nombre", assetidentifier "Código de activo", serialnumber "Número de serie"
+from components
+where spaceid is null and facilityid = 1
+Order by assetidentifier desc;
 
 /* 21
 Nombre, código de activo, número de serie de los componentes
@@ -160,6 +189,11 @@ de los componentes del facility 1
 que tienen fecha de garantia
 */
 
+select
+    name, installatedon "FECHA DE INSTALACIÓN", warrantystarton "FECHA DE GARANTÍA"
+from components
+where facilityid = 1 and warrantystarton is not null;
+
 /* 27
 Lista de nombres de espacio que su id no es 4, 9, ni 19
 del floorid 1
@@ -190,6 +224,11 @@ del facility 1
 Lista de los tipos de componentes que no tiene el coste de repuesto
 del facility 1
 */
+
+select
+    facilityid, name, replacementcost
+from component_types
+where replacementcost is null and facilityid = 1;
 
 /* 31
 Lista de los tipos de componentes que tienen en el nombre un guión bajo
