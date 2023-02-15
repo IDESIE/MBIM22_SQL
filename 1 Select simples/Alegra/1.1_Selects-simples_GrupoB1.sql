@@ -106,6 +106,10 @@ Nombre, código de activo, número de serie de los componentes
 que no tengan espacio del facility 1
 ordenados descendentemente por código de activo
 */
+SELECT NAME "NOMBRE DEL COMPONENTE", ASSETIDENTIFIER "CÓDIGO DE ACTIVO", SERIALNUMBER "NÚMERO DE SERIE"
+FROM COMPONENTS 
+WHERE SPACEID = NULL AND FACILITYID = 1
+ORDER BY 2 DESC;
 
 /* 21
 Nombre, código de activo, número de serie de los componentes
@@ -125,6 +129,11 @@ Lista de tipos de componente del facility 1
 donde el nombre contiene el texto 'con'
 y no tienen vida útil indicada o fecha de garantia 
 */
+SELECT NAME
+FROM COMPONENT_TYPES
+WHERE FACILITYID = 1 AND NAME LIKE %con% AND EXPECTEDLIFE = NULL OR WARRANTYDURATIONPARTS = NULL;
+SELECT WARRANTYDURATIONPARTS
+FROM COMPONENT_TYPES;
 
 /* 25
 Nombres de espacios y volumen
