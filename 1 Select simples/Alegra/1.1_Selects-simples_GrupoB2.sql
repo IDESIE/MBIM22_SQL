@@ -8,7 +8,7 @@ DESC FLOORS;
 /* 2
 Describir la tabla spaces
 */
-
+from Spaces;
 /* 3
 Datos de la tabla components
 */
@@ -29,7 +29,8 @@ from facilities;
 /* 6
 Nombre, elevación e id del facility de las plantas
 */
-
+Select Name, elevation, facilityid
+from floors;
 /* 7
 Nombre, area bruta, volumen de los espacios
 */
@@ -55,7 +56,9 @@ where floorid = ( select ID
 /* 10
 Nombre, número de modelo del tipo de componente con id = 60
 */
-
+select name, modelnumber
+from component_types 
+where id=60;
 /* 11
 Nombre y fecha de instalación de los componentes del espacio 60 ordenados descendentemente por la fecha de instalación
 */
@@ -79,7 +82,9 @@ order by (warrantystarton) asc;
 Id, código de activo, GUID, número de serie y nombre de los componentes cuyo spaceid está entre 10 y 27 inclusive
 ordenados por id de espacio descendentemente.
 */
-
+Select id,ASSETIDENTIFIER Código_de_Activo, Externalidentifier GUID, SERIALNUMBER Número_de_Serie, Name Nombre_De_Los_Componentes
+FROM COMPONENTS
+where spaceid < 27 and spaceid >  10;
 /* 15
 Id, código de activo, GUID, número de serie y nombre de los componentes del facility 1 
 ordenados por código de activo descendentemente.
@@ -112,7 +117,9 @@ Nombre, volumen, de los espacios
 cuyo volumen es mayor a 90 de floorid = 1
 ordenados por volumen descendentemente
 */
-
+Select name, volume
+from spaces
+where volume > 90 and floorid=1;
 /* 19
 Nombre, volumen de los espacios
 cuyo volumen es mayor a 6 y menor a 9 de la planta con id = 1
@@ -140,7 +147,9 @@ where facilityid=1;
 /* 22
 Nombre de los espacios que empiezan por la letra A donde floorid = 1
 */
-
+Select name
+from spaces
+where name like 'A%' and floorid = 1;
 /* 23
 Lista de espacios que su segunda letra es una 's' donde floorid = 1
 */
@@ -152,7 +161,9 @@ Lista de tipos de componente del facility 1
 donde el nombre contiene el texto 'con'
 y no tienen vida útil indicada o fecha de garantia 
 */
-
+Select name
+from component_types
+Where facilityid=1 and name like '%con%' and (expectedlife=NULL or warrantydurationunitid=NULL);
 /* 25
 Nombres de espacios y volumen
 pero como volumen una etiqueta que indique 
