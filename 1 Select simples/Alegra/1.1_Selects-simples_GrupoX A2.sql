@@ -5,6 +5,7 @@
 Describir la tabla floors
 */
 
+DESC FLOORS,
 /* 2
 Describir la tabla spaces
 */
@@ -52,11 +53,26 @@ FROM SPACES;
 Nombre, vida útil de los tipos de componentes del facility 1
 */
 
+SELECT
+    NAME "NOMBRE DEL TIPO DE COMPONENTE", EXPECTEDLIFE "VIDA ÚTIL"
+FROM COMPONENT_TYPES
+WHERE FACILITYID= 1;
+
 /* 9
 Nombre de los espacios de la Planta 1 del facility 1
 */
 /*Previamente se consulta cuál es el floorid
 listando los */
+
+Select
+	NAME, FLOORID
+FROM SPACES;
+WHERE FLOORID = (
+    SELECT ID
+    FROM FLOORS
+    WHERE
+    NAME= 'PLANTA+1'
+    AND FACILITYID = 1);
 
 /* 10
 Nombre, número de modelo del tipo de componente con id = 60
@@ -90,6 +106,13 @@ order by installatedon desc;
 /* 13
 Listar los distintos GUIDs de los componentes del facility 1 ordenados ascendentemente por fecha de garantía.
 */
+
+SELECT
+    ID, GUID, TO_CHAR (WARRANYSTARTON, 'DD-MM-YYY') "FECHA DE GARANTÍA"
+FROM COMPONENTS
+WHERE FACILITYID=1
+AND WARRANTYSTARTON IS NOT NULL
+ORDER BY TO_CHAR (INSTALLATEDON, YYYY-MM-DD)ASC;
 
 /* 14
 Id, código de activo, GUID, número de serie y nombre de los componentes cuyo spaceid está entre 10 y 27 inclusive
@@ -152,6 +175,11 @@ order by volume desc;
 Nombre, volumen de los espacios
 cuyo volumen es mayor a 6 y menor a 9 de la planta con id = 1
 */
+SELECT
+    FLOORID, NAME NOMBRE, VOLUME VOLUMEN
+FROM SPACES
+WHERE FLOORID=1
+AND VOLUME BETWEEN 6 AND 9;
 
 /* 20
 Nombre, código de activo, número de serie de los componentes
@@ -181,6 +209,11 @@ and serialnumber is not null;
 Nombre de los espacios que empiezan por la letra A donde floorid = 1
 */
 
+SELECT
+    NAME FLOORID
+FROM SPACES
+WHERE FLOORID=1 AND NAME LIKE 'A%';
+
 /* 23
 Lista de espacios que su segunda letra es una 's' donde floorid = 1
 */
@@ -195,6 +228,11 @@ Lista de tipos de componente del facility 1
 donde el nombre contiene el texto 'con'
 y no tienen vida útil indicada o fecha de garantia 
 */
+
+SELECT
+    NAME
+FROM COMPONENT_TYPES
+WHERE FACILITYID= 1 AND WARRANTYSTARTON IS NULL
 
 /* 25
 Nombres de espacios y volumen
