@@ -14,6 +14,7 @@ Datos de la tabla components
 */
 SELECT *
     FROM components;
+
 /* 4
 Datos de la tabla component_types
 */
@@ -187,10 +188,7 @@ where floorid=1 and id is not in (4,9,19);
 /* 28
 Lista de espacios que no son Aula del floorid = 1
 */
-select
-    name
-from spaces
-where floorid=1 and lower(name)not like '%aula%';
+
 /* 29
 Lista de los tipos de componentes que tienen duracion de la garantia de las partes
 del facility 1
