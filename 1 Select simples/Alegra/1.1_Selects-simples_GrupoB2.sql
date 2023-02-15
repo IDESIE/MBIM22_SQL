@@ -119,7 +119,7 @@ cuyo volumen es mayor a 6 y menor a 9 de la planta con id = 1
 */
 SELECT NAME, VOLUME
 FROM SPACES
-WHERE (VOLUME BETWEEN 6 AND 9) AND FLOORID=1;
+WHERE (VOLUME > 6 and Volume < 9) AND FLOORID=1;
 /* 20
 Nombre, código de activo, número de serie de los componentes
 que no tengan espacio del facility 1
@@ -188,7 +188,10 @@ where floorid=1 and id is not in (4,9,19);
 /* 28
 Lista de espacios que no son Aula del floorid = 1
 */
-
+select
+    name
+from spaces
+where floorid=1 and lower(name)not like '%aula%';
 /* 29
 Lista de los tipos de componentes que tienen duracion de la garantia de las partes
 del facility 1
