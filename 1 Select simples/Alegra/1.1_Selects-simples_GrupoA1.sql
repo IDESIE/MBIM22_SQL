@@ -5,6 +5,8 @@
 Describir la tabla floors
 */
 
+desc floors;
+
 /* 2
 Describir la tabla spaces
 */
@@ -22,6 +24,10 @@ FROM COMPONENT_TYPES;
 /* 5
 Id, nombre de los facilities
 */
+
+SELECT * 
+FROM FLOORS
+WHERE FACILITYID=1 AND ID=1;
 
 /* 6
 Nombre, elevación e id del facility de las plantas
@@ -80,6 +86,12 @@ ORDER BY TO_CHAR (INSTALLATEDON, 'YYYY-MM-DD') DESC;
 Listar los distintos GUIDs de los componentes del facility 1 ordenados ascendentemente por fecha de garantía.
 */
 
+SELECT ID "GUID", TO_CHAR (WARRANTYSTARTON, 'DD-MM-YYYY')"FECHA DE GARANTÍA"
+FROM COMPONENTS
+WHERE FACILITYID = 1
+AND WARRANTYSTARTON IS NOT NULL
+ORDER BY TO_CHAR (INSTALLATEDON, 'YYYY-MM-DD') ASC;
+
 /* 14
 Id, código de activo, GUID, número de serie y nombre de los componentes cuyo spaceid está entre 10 y 27 inclusive
 ordenados por id de espacio descendentemente.
@@ -111,6 +123,13 @@ de los espacios con id 10, 12, 16, 19
 ordenadas descendentemente.
 */
 
+select distinct
+    installatedon
+from components
+where facilityid = 1
+    and spaceid in (10,12,16,19)
+order by installatedon desc;
+
 /* 18
 Nombre, volumen, de los espacios
 cuyo volumen es mayor a 90 de floorid = 1
@@ -141,6 +160,10 @@ ORDER BY 2 DESC;
 Nombre, código de activo, número de serie de los componentes
 que tengan número de serie del facility 1
 */
+
+select name, assetidentifier, serialnumber
+from components
+where facilityid = 1 and serialnumber is not null;
 
 /* 22
 Nombre de los espacios que empiezan por la letra A donde floorid = 1
@@ -206,6 +229,11 @@ WHERE NAME NOT LIKE '%Aula%' AND FLOORID = 1;
 Lista de los tipos de componentes que tienen duracion de la garantia de las partes
 del facility 1
 */
+
+SELECT NAME "TIPOS DE COMPONENTES"
+FROM COMPONENT_TYPES
+WHERE FACILITYID = 1
+AND warrantydurationparts IS NOT NULL;
 
 /* 30
 Lista de los tipos de componentes que no tiene el coste de repuesto
