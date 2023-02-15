@@ -12,6 +12,8 @@ Describir la tabla spaces
 /* 3
 Datos de la tabla components
 */
+select* 
+    from components;
 
 /* 4
 Datos de la tabla component_types
@@ -29,6 +31,12 @@ Nombre, elevación e id del facility de las plantas
 /* 7
 Nombre, area bruta, volumen de los espacios
 */
+select
+    name "nombre de espacios",
+    grossarea "area bruta",
+    volume "volumen"
+from
+    spaces;
 
 /* 8
 Nombre, vida útil de los tipos de componentes del facility 1
@@ -50,7 +58,16 @@ Nombre, número de modelo del tipo de componente con id = 60
 /* 11
 Nombre y fecha de instalación de los componentes del espacio 60 ordenados descendentemente por la fecha de instalación
 */
-
+select
+    name "nombre",
+    createdat "fecha de instalación" 
+from
+    components
+where
+    spaceid = 60
+order by
+    createdat desc;
+    
 /* 12
 Listar las distintas fechas de instalación de los componentes del facility 1 ordenados descendentemente.
 */
@@ -73,7 +90,18 @@ ordenados por id de espacio descendentemente.
 Id, código de activo, GUID, número de serie y nombre de los componentes del facility 1 
 ordenados por código de activo descendentemente.
 */
-
+select
+    id,
+    assetidentifier "codigo de activo",
+    externalidentifier "guid",
+    serialnumber "numero de serie",
+    name "nombre"
+from 
+    components
+where
+    facilityid = 1
+order by assetidentifier desc;
+    
 /* 16
 Códigos de activo de los componentes del espacio con id 21
 ordenados por código de activo descendentemente.
@@ -100,6 +128,13 @@ ordenados por volumen descendentemente
 Nombre, volumen de los espacios
 cuyo volumen es mayor a 6 y menor a 9 de la planta con id = 1
 */
+select
+    name "nombre",
+    volume "volumen"
+from
+    spaces
+where
+    volume > 6 and volume < 9 and  floorid = 1;
 
 /* 20
 Nombre, código de activo, número de serie de los componentes
@@ -123,6 +158,13 @@ Nombre de los espacios que empiezan por la letra A donde floorid = 1
 /* 23
 Lista de espacios que su segunda letra es una 's' donde floorid = 1
 */
+select
+    name "nombre"
+from
+    spaces
+where
+    floorid = 1
+    and name like '_s%';
 
 /* 24
 Lista de tipos de componente del facility 1 
@@ -160,6 +202,13 @@ que tienen fecha de garantia
 Lista de nombres de espacio que su id no es 4, 9, ni 19
 del floorid 1
 */
+select 
+    name "nombre"
+from
+    spaces
+where
+    floorid =1 
+    and id not like 4 and id not like 9 and id not like 19;
 
 /* 28
 Lista de espacios que no son Aula del floorid = 1
@@ -184,6 +233,13 @@ del facility 1
 Lista de los tipos de componentes que tienen en el nombre un guión bajo
 del facility 1
 */
-
+select
+    name "nombre"
+from
+    component_types
+where 
+    facilityid = 1
+    and name like '%_%';
+    
 --
 ------------------------------------------------------------------------------------------------
