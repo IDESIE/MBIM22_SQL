@@ -80,9 +80,9 @@ select
 from
     components
 where
-    spaceid = 60
+    spaceid = 60 
 order by
-    createdat desc;
+    installatedon desc;
     
 /* 12
 Listar las distintas fechas de instalación de los componentes del facility 1 ordenados descendentemente.
