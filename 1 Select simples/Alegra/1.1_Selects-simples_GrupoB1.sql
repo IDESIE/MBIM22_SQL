@@ -60,7 +60,7 @@ Nombre y fecha de instalación de los componentes del espacio 60 ordenados desce
 */
 select
     name "nombre",
-    createdat "fecha de instalación" 
+    installatedon "fecha de instalación" 
 from
     components
 where
@@ -208,7 +208,7 @@ from
     spaces
 where
     floorid =1 
-    and id not like 4 and id not like 9 and id not like 19;
+    and id not in (4,9,19);
 
 /* 28
 Lista de espacios que no son Aula del floorid = 1
