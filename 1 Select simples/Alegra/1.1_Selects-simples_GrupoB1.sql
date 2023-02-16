@@ -5,6 +5,7 @@
 Describir la tabla floors
 */
 
+DESC FLOORS;
 /* 2
 Describir la tabla spaces
 */
@@ -23,6 +24,10 @@ SELECT * FROM COMPONENT_TYPES;
 /* 5
 Id, nombre de los facilities
 */
+SELECT
+        NAME
+        ID
+FROM FACILITIES;
 
 /* 6
 Nombre, elevación e id del facility de las plantas
@@ -48,6 +53,17 @@ WHERE FACILITYID = 1;
 /* 9
 Nombre de los espacios de la Planta 1 del facility 1
 */
+SELECT
+        NAME
+        FLOORID
+FROM SPACES
+
+WHERE
+        FLOORID=(SELECT ID
+        FROM FLOORS
+WHERE 
+        NAME='Planta 1'
+       AND FACILITYID=1);
 /*Previamente se consulta cuál es el floorid
 listando los */
 
@@ -80,7 +96,15 @@ ORDER BY installatedon DESC;
 /* 13
 Listar los distintos GUIDs de los componentes del facility 1 ordenados ascendentemente por fecha de garantía.
 */
-
+SELECT
+        DISTINCT(EXTERNALIDENTIFIER),
+        WARRANTYSTARTON
+FROM
+        COMPONENTS
+WHERE
+        FACILITYID=1
+ORDER BY
+        (WARRANTYSTARTON) ASC;
 /* 14
 Id, código de activo, GUID, número de serie y nombre de los componentes cuyo spaceid está entre 10 y 27 inclusive
 ordenados por id de espacio descendentemente.
@@ -117,7 +141,14 @@ Las distintas fechas de instalación de los componentes
 de los espacios con id 10, 12, 16, 19 
 ordenadas descendentemente.
 */
-
+SELECT
+        DISTINCT(INSTALLATEDON)
+FROM
+        COMPONENTS
+WHERE
+        SPACEID IN (10,12,16,19)
+ORDER BY
+        (INSTALLATEDON) DESC;
 /* 18
 Nombre, volumen, de los espacios
 cuyo volumen es mayor a 90 de floorid = 1
@@ -150,7 +181,14 @@ ORDER BY 2 DESC;
 Nombre, código de activo, número de serie de los componentes
 que tengan número de serie del facility 1
 */
-
+SELECT
+        NAME,
+        ASSETIDENTIFIER,
+        SERIALNUMBER
+FROM
+        COMPONENTS
+WHERE
+        FACILITYID=1;
 /* 22
 Nombre de los espacios que empiezan por la letra A donde floorid = 1
 */
@@ -214,6 +252,7 @@ where
 Lista de espacios que no son Aula del floorid = 1
 */SELECT
    NAME
+   ID
 FROM
     SPACES
 WHERE FLOORID = 1 and lower(NAME) not like '%aula%' 
