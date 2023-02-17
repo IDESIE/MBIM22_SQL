@@ -18,6 +18,11 @@ Día en palabras de cuando se instalaron los componentes
 del facility 1
 */
 
+select 
+    to_char(installatedon,'Day') 
+from components 
+where facilityid=1;
+
 /* 3
 De los espacios, obtener la suma de áreas, cuál es el mínimo, el máximo y la media de áreas
 del floorid 1. Redondeado a dos dígitos.
@@ -27,6 +32,13 @@ del floorid 1. Redondeado a dos dígitos.
 Listar el número de componentes que tienen indicado el espacio y el número de componentes total.
 del facility 1
 */
+
+select
+    components.id
+from components, spaces
+where components.spaceid is not null and facilityid = 1
+group by components.id
+order by 1 asc;
 
 /* 5
 Mostrar tres medias que llamaremos:
@@ -74,6 +86,12 @@ Pati
 Serv
 */
 
+select 
+    substr(spaces.name,0,4)
+from spaces,floors
+where spaces.floorid=floors.id and floors.facilityid=1
+order by 1 asc;
+
 /* 10
 Número de componentes por fecha de instalación del facility 1
 ordenados descendentemente por la fecha de instalación
@@ -117,6 +135,15 @@ Aula 23
 Aseo 12
 Pasi 4
 */
+
+select
+    substr(spaces.name,1,4),
+    count(substr(spaces.name,1,4))
+from spaces
+where floorid=1
+group by substr(spaces.name,1,4)
+order by 1 asc
+;
 
 /*14
 Cuántos componentes de instalaron un Jueves
