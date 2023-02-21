@@ -13,6 +13,11 @@ finalizando con un punto. Luego la hora en formato 24h con minutos y segundos.
 Y de etiqueta del campo "Fecha actual".
 */
 
+select 
+    to_char (sysdate,'Day,dd "de" month "de" yyyy. hh:mm:ss') "FECHA ACTUAL"
+from 
+    facilities;
+
 /* 2
 Día en palabras de cuando se instalaron los componentes
 del facility 1
@@ -102,6 +107,15 @@ Fecha   Componentes
 2021-03-03 232
 */
 
+select
+    count (name), installatedon
+from 
+    components
+where 
+    facilityid=1
+Group by installatedon;
+
+
 /* 11
 Un listado por año del número de componentes instalados del facility 1
 ordenados descendentemente por año.
@@ -149,6 +163,14 @@ order by 1 asc
 Cuántos componentes de instalaron un Jueves
 en el facilityid 1
 */
+
+select
+    count(*), to_char(installatedon,'day')
+from
+    components
+where
+    facilityid=1 and to_char(installatedon,'day') like '%thursday%'    
+group by to_char(installatedon,'day');
 
 /*15
 Listar el id de planta concatenado con un guión
