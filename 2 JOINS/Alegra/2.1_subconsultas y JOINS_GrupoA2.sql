@@ -12,7 +12,8 @@ select
     floors.id "FLOORS ID",
     floors.name "FLOORS NAME",
     floors.facilityid "FLOORS FACILITYID"
-from facilities, floors;
+from floors
+join facilities on floors.facilityid = facilities.id;
 
 /*2
 Lista de id de espacios que no están en la tabla de componentes (spaceid)
@@ -159,7 +160,11 @@ from
     components
     join spaces on spaces.id = components.spaceid
 where
-    components.facilityid=1 and spaces.name like '%Aula%'
+    components.facilityid=1 and spaces.name like '%Aula%' 
+    and lower (components.name) not like '%tuberia%'
+            and lower (components.name) not like '%muro%'
+            and lower (components.name) not like '%techo%'
+            and lower (components.name) not like '%suelo%'
 order by spaces.name asc;
 
 /*
@@ -199,7 +204,7 @@ from
     components
     join component_types on component_types.id = components.typeid
 where
-    lower (component_types.name) like '%mesa%';
+    components.facilityid=1 and lower (component_types.name) like '%mesa%';
 
 /*
 18
@@ -299,6 +304,17 @@ Número de componentes instalados entre el 1 de mayo de 2010 y 31 de agosto de 2
 y que sean grifos, lavabos del facility 1
 */
 
+select
+    components.name, to_char(components.installatedon, 'yyyy-mm-dd')
+from
+    components
+where
+    components.facilityid=1
+    and (lower(components.name) like '%lavabo%' 
+    or lower (components.name) like '%grifo%')
+    and to_char(components.installatedon, 'yyyy-mm-dd')
+    between '2010-05-01'and'2010-08-31'
+order by 2 desc;
 
 /*
 25
@@ -319,6 +335,28 @@ Mesas 3
 Nombre del espacio, y número de grifos del espacio con más grifos del facility 1.
 */
 
+select
+    spaces.name, count (components.name)
+from 
+    spaces
+    join floors on floors.facilityid = spaces.floorid
+    join components on components.spaceid = spaces.id
+where
+    floors.facilityid=1 
+    and lower (components.name) like '%grifo%'
+group by spaces.name
+having count (components.name) = (
+        select
+            max (count (components.name))
+        from 
+            spaces
+            join floors on floors.facilityid = spaces.floorid
+            join components on components.spaceid = spaces.id
+        where
+            floors.facilityid=1 
+            and lower (components.name) like '%grifo%'
+        group by spaces.name
+        );
 
 /*
 27
@@ -346,4 +384,17 @@ Listar los nombres de componentes que están fuera de garantía del facility 1.
 Listar el nombre de los tres espacios con mayor área del facility 1
 */
 
+select
+    rownum, area, spacename
+from(
+    select distinct
+        spaces.netarea area, spaces.name spacename
+    from
+        components
+        join spaces on components.spaceid=spaces.id
+    where
+        facilityid=1
+    order by 1 desc)
+where
+    rownum <4;
 ------------------------------------------------------------------------------------------------

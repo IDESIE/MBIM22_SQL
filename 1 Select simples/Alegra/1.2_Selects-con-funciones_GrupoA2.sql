@@ -112,7 +112,8 @@ from
     components
 where 
     facilityid=1
-Group by installatedon;
+Group by installatedon
+order by installatedon desc;
 
 
 /* 11
