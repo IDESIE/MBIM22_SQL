@@ -12,7 +12,9 @@ la palabra "de", el mes en minúscula en palabras, la palabra "de", el año en c
 finalizando con un punto. Luego la hora en formato 24h con minutos y segundos.
 Y de etiqueta del campo "Fecha actual".
 */
-
+SELECT 
+    TO_CHAR(SYSDATE,'Day, dd "de" month "de" yyyy. hh:mm:ss') "Fecha Actual"
+FROM FACILITIES;
 /* 2
 Día en palabras de cuando se instalaron los componentes
 del facility 1
@@ -64,7 +66,11 @@ Pasi
 Pati
 Serv
 */
-
+SELECT 
+    lower(substr(name,1,4))
+FROM spaces
+Group by lower(substr(name,1,4))
+order by 1 Asc;
 /* 10
 Número de componentes por fecha de instalación del facility 1
 ordenados descendentemente por la fecha de instalación
@@ -108,7 +114,13 @@ Aula 23
 Aseo 12
 Pasi 4
 */
-
+Select
+    lower(substr(name,1,4)) as Iniciales,
+    Count(*) as Cuenta
+From Spaces 
+where floorid=1
+group by lower(substr(name,1,4))
+order by 1 Asc;
 /*14
 Cuántos componentes de instalaron un Jueves
 en el facilityid 1
