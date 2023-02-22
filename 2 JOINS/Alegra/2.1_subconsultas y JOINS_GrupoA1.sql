@@ -191,7 +191,19 @@ Componentes    Tipo   Espacio
 1   Mesa-profesor           Aula 3
 21  Mesa-cristal-redonda    Aula 12
 */
-
+select
+    count(components.id) componentes,
+    component_types.name tipo,
+    spaces.name  espacio
+from
+        components
+        join component_types on components.typeid = component_types.id
+        join spaces on spaces.id = components.spaceid
+    where
+        components.facilityid = 1 and lower(component_types.name) like '%mesa%'
+    group by component_types.name, spaces.name
+order by 3 asc, 1 desc
+    ;
 
 /*
 21
@@ -236,7 +248,16 @@ Nombre y área del espacio que mayor área bruta tiene del facility 1.
 Número de componentes instalados entre el 1 de mayo de 2010 y 31 de agosto de 2010
 y que sean grifos, lavabos del facility 1
 */
-
+select
+    components.name,
+    to_char(installatedon, 'yyyy-mm-dd')
+from
+    components
+where
+    components.facilityid = 1
+    and (lower(components.name) like '%grifo%' or lower(components.name) like '%lavabo%')
+    and to_char(components.installatedon,'YYYY-MM-DD') between '2010-05-01' and '2010-08-31'
+;
 
 /*
 25
@@ -268,7 +289,23 @@ Cuál es el mes en el que más componentes se instalaron del facility 1.
 Nombre del día en el que más componentes se instalaron del facility 1.
 Ejemplo: Jueves
 */
-
+select
+    to_char(components.installatedon,'day')
+from
+    components
+    where
+    components.facilityid = 1
+    group by to_char(components.installatedon,'day')
+    having count (to_char(components.installatedon,'day')) = (
+        select
+            max(count(to_char(components.installatedon,'day')))
+            from
+             components
+            where
+                components.facilityid = 1
+            group by to_char(components.installatedon,'day')
+            )
+;
 /*29
 Listar los nombres de componentes que están fuera de garantía del facility 1.
 */
