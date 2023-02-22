@@ -94,7 +94,7 @@ select
     distinct substr(spaces.name,0,4)
 from spaces,floors
 where spaces.floorid=floors.id and floors.facilityid=1
-order by 1 asc;;
+order by 1 asc;
 
 /* 10
 Número de componentes por fecha de instalación del facility 1
