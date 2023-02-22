@@ -19,6 +19,11 @@ Lista de id de espacios que no están en la tabla de componentes (spaceid)
 pero sí están en la tabla de espacios.
 */ 
 
+select 
+    distinct components.spaceid
+from
+    components, spaces
+where spaces.id is not null;
 
 /*3
 Lista de id de tipos de componentes que no están en la tabla de componentes (typeid)
@@ -32,6 +37,14 @@ y de la tabla spaces los campos: floorid, id, name
 de los espacios 109, 100, 111
 */
 
+select
+    floors.name,
+    floors.id,
+    spaces.floorid,
+    spaces.id,
+    spaces.name
+from spaces, floors
+where spaces.id = 109 or spaces.id =100 or spaces.id = 111;
 
 /*5
 Mostrar de component_types los campos: material, id;
@@ -64,6 +77,15 @@ de los componentes con id 10000, 20000, 30000
 aunque no tengan datos de espacio.
 */
 
+select
+    spaces.name,
+    spaces.id,
+    components.spaceid,
+    components.id,
+    components.assetidentifier
+
+from spaces, components
+where components.id=10000 or components.id=20000 or components.id=30000;
 
 /*
 10
@@ -108,6 +130,20 @@ ordernado por facility.
 --COSTCO	Silla-Corbu_Silla-Corbu	14
 --COSTCO	Silla-Oficina (brazos)_Silla-Oficina (brazos)	188
 
+
+select
+    facilities.name,
+    component_types.name,
+    count(component_types.name)
+from
+    component_types,
+    facilities
+where lower (component_types.name) like '%silla%'    
+Group by 
+    facilities.name,
+    component_types.name
+;
+
 /*
 14
 Listar nombre, código de asset, número de serie, el año de instalación, nombre del espacio,
@@ -137,6 +173,19 @@ Nombre, área bruta y volumen de los espacios con mayor área que la media de á
 Nombre y fecha de instalación (yyyy-mm-dd) de los componentes del espacio con mayor área del facility 1
 */
 
+select
+    components.name,
+    to_char(components.installatedon, 'yyyy-mm-dd')
+from
+    components,
+    spaces
+where  
+    components.facilityid = 1 
+    and spaces.netarea = 
+                    (select
+                        max(netarea)
+                    from
+                        spaces);
 
 /*
 17
@@ -212,6 +261,15 @@ Aseo    4
 Hall    2
 */
 
+select
+    substr(lower(spaces.name),1,4),
+    count(substr(spaces.name,1,4))
+from spaces,facilities
+where facilities.id=1
+group by substr(lower(spaces.name),1,4)
+order by 2 desc
+;
+
 
 /*
 23
@@ -272,6 +330,12 @@ Cuál es el mes en el que más componentes se instalaron del facility 1.
 Nombre del día en el que más componentes se instalaron del facility 1.
 Ejemplo: Jueves
 */
+select
+    max(to_char(components.installatedon,'day'))
+from
+    components
+where 
+    components.facilityid=1
 
 /*29
 Listar los nombres de componentes que están fuera de garantía del facility 1.
