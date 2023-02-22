@@ -17,7 +17,9 @@ Y de etiqueta del campo "Fecha actual".
 Día en palabras de cuando se instalaron los componentes
 del facility 1
 */
-
+ id from spaces
+ minus
+ select spaceid from components;
 /* 3
 De los espacios, obtener la suma de áreas, cuál es el mínimo, el máximo y la media de áreas
 del floorid 1. Redondeado a dos dígitos.
