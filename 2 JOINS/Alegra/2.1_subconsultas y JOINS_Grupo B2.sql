@@ -10,7 +10,10 @@ además de la tabla floors el id, nombre y facilityid
 Lista de id de espacios que no están en la tabla de componentes (spaceid)
 pero sí están en la tabla de espacios.
 */ 
-
+Select 
+    SPACES.ID
+FROM 
+    SPACES JOIN COMPONENTS ON COMPONENTS.SPACEID=SPACES.ID;
 
 /*3
 Lista de id de tipos de componentes que no están en la tabla de componentes (typeid)
@@ -35,7 +38,13 @@ de los componentes con id 10000, 20000, 300000
 /*6
 ¿Cuál es el nombre de los espacios que tienen cinco componentes?
 */
-
+SELECT 
+    SPACES.NAME,
+    Count(COMPONENTS.SPACEID)
+FROM 
+    SPACES JOIN COMPONENTS ON COMPONENTS.SPACEID=SPACES.ID
+GROUP BY SPACES.NAME
+HAVING Count(COMPONENTS.SPACEID) = 5;
 
 /*7
 ¿Cuál es el id y assetidentifier de los componentes
@@ -62,7 +71,12 @@ aunque no tengan datos de espacio.
 Listar el nombre de los espacios y su área del facility 1
 */
 
-
+SELECT 
+    SPACES.NAME,
+    spaces.netarea
+FROM 
+    SPACES JOIN FLOORS ON SPACES.FLOORID =FLOORS.ID
+WHERE FACILITYID=1;
 /*11
 ¿Cuál es el número de componentes por facility?
 Mostrar nombre del facility y el número de componentes.
@@ -102,7 +116,22 @@ del facility 1
 que estén en un aula y no sean tuberias, muros, techos, suelos.
 */
 
-
+SELECT
+    COMPONENTS.NAME,
+    COMPONENTS.ASSETIDENTIFIER,
+    COMPONENTS.SERIALNUMBER,
+    TO_CHAR(COMPONENTS.INSTALLATEDON),
+    SPACES.NAME,
+    COMPONENTS.FACILITYID
+FROM 
+    COMPONENTS JOIN SPACES ON COMPONENTS.SPACEID = SPACES.ID
+WHERE UPPER(SPACES.NAME) LIKE '%AULA%' 
+AND 
+(UPPER(COMPONENTS.NAME) 
+NOT LIKE ('%TUBERIA%') OR UPPER(COMPONENTS.NAME) 
+NOT LIKE '%MURO%' OR UPPER(COMPONENTS.NAME) 
+NOT LIKE '%TECHO%' OR UPPER(COMPONENTS.NAME) 
+NOT LIKE '%SUELO%'); 
 /*
 15
 Nombre, área bruta y volumen de los espacios con mayor área que la media de áreas del facility 1.
@@ -127,7 +156,14 @@ del facility 1
 Nombre del componente, espacio y planta de los componentes
 de los espacios que sean Aula del facility 1
 */
-
+SELECT  
+    COMPONENTS.NAME COMPONENTE,
+    SPACES.NAME ESPACIO, 
+    FLOORS.NAME PLANTA
+FROM COMPONENTS
+    JOIN SPACES ON COMPONENTS.SPACEID = SPACES.ID
+    JOIN FLOORS ON SPACES.FLOORID = FLOORS.ID
+WHERE FLOORS.FACILITYID=1;
 
 /*
 19
@@ -181,7 +217,12 @@ Aula    18
 Aseo    4
 Hall    2
 */
-
+SELECT 
+    SUBSTR(SPACES.NAME,1,4) Espacio,
+    COUNT(*) Ocurrencia
+FROM SPACES JOIN FLOORS ON SPACES.FLOORID = FLOORS.ID
+WHERE FACILITYID=1
+GROUP BY SUBSTR(SPACES.NAME,1,4);
 
 /*
 23
@@ -214,7 +255,16 @@ Mesas 3
 26
 Nombre del espacio, y número de grifos del espacio con más grifos del facility 1.
 */
-
+SELECT 
+    spaces.name Nombre_Espacio,
+    COUNT(*) Grifos
+    
+FROM SPACES JOIN COMPONENTS ON COMPONENTS.SPACEID = SPACES.ID
+WHERE FACILITYID=1
+having 
+Count(*)=(select max(count(*)) from SPACES  JOIN COMPONENTS ON COMPONENTS.SPACEID = SPACES.ID
+group by spaces.name)
+GROUP BY spaces.name;
 
 /*
 27
