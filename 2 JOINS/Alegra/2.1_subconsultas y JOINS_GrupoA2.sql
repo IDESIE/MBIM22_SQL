@@ -6,6 +6,14 @@ Listar de la tabla facilities el id y nombre,
 además de la tabla floors el id, nombre y facilityid
 */
 
+select
+    facilities.id "FACILITIES ID",
+    facilities.name "FACILITIES NAME",
+    floors.id "FLOORS ID",
+    floors.name "FLOORS NAME",
+    floors.facilityid "FLOORS FACILITYID"
+from facilities, floors;
+
 /*2
 Lista de id de espacios que no están en la tabla de componentes (spaceid)
 pero sí están en la tabla de espacios.
@@ -62,6 +70,12 @@ aunque no tengan datos de espacio.
 Listar el nombre de los espacios y su área del facility 1
 */
 
+select 
+    floors.facilityid, spaces.name "SPACES NAME", spaces.netarea, spaces.grossarea
+from 
+    spaces
+    join floors on floors.facilityid = spaces.floorid
+where facilityid = 1;
 
 /*11
 ¿Cuál es el número de componentes por facility?
@@ -102,6 +116,15 @@ del facility 1
 que estén en un aula y no sean tuberias, muros, techos, suelos.
 */
 
+select 
+    components.facilityid, components.name "COMPONENTS NAME", components.assetidentifier, components.serialnumber, 
+    to_char(components.installatedon, 'yyyy')"INSTALLATION YEAR", components.spaceid, spaces.name "SPACES NAME"
+from
+    components
+    join spaces on spaces.id = components.spaceid
+where
+    components.facilityid=1 and spaces.name like '%Aula%'
+order by spaces.name asc;
 
 /*
 15
@@ -121,6 +144,13 @@ Nombre y código de activo  de los componentes cuyo tipo de componente contenga 
 del facility 1
 */
 
+select 
+    components.name "NOMBRE", components.externalidentifier "CODIGO DE ACTIVO"
+from
+    components
+    join component_types on component_types.id = components.typeid
+where
+    lower (component_types.name) like '%mesa%';
 
 /*
 18
@@ -188,6 +218,22 @@ Hall    2
 Nombre y área del espacio que mayor área bruta tiene del facility 1.
 */
 
+select
+    spaces.name, max(spaces.grossarea)
+from 
+    spaces
+     join floors on spaces.floorid = floors.id
+where
+    facilityid =1
+group by spaces.name
+having max (spaces.grossarea) =
+    (select 
+        max(spaces.grossarea)
+    from
+        spaces
+        join floors on spaces.floorid = floors.id
+    where
+        facilityid =1);
 
 /*
 24
