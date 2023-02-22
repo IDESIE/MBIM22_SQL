@@ -39,11 +39,10 @@ del facility 1
 */
 
 select
-    components.id
-from components, spaces
-where components.spaceid is not null and facilityid = 1
-group by components.id
-order by 1 asc;
+    count(spaceid),
+    count(*)
+from components
+where facilityid = 1
 
 /* 5
 Mostrar tres medias que llamaremos:
@@ -92,10 +91,10 @@ Serv
 */
 
 select 
-    substr(spaces.name,0,4)
+    distinct substr(spaces.name,0,4)
 from spaces,floors
 where spaces.floorid=floors.id and floors.facilityid=1
-order by 1 asc;
+order by 1 asc;;
 
 /* 10
 Número de componentes por fecha de instalación del facility 1
