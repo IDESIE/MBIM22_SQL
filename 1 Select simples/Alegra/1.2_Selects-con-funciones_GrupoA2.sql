@@ -13,10 +13,20 @@ finalizando con un punto. Luego la hora en formato 24h con minutos y segundos.
 Y de etiqueta del campo "Fecha actual".
 */
 
+select 
+    to_char (sysdate,'Day,dd "de" month "de" yyyy. hh:mm:ss') "FECHA ACTUAL"
+from 
+    facilities;
+
 /* 2
 Día en palabras de cuando se instalaron los componentes
 del facility 1
 */
+
+select 
+    to_char(installatedon,'Day') 
+from components 
+where facilityid=1;
 
 /* 3
 De los espacios, obtener la suma de áreas, cuál es el mínimo, el máximo y la media de áreas
@@ -27,6 +37,12 @@ del floorid 1. Redondeado a dos dígitos.
 Listar el número de componentes que tienen indicado el espacio y el número de componentes total.
 del facility 1
 */
+
+select
+    count(spaceid),
+    count(*)
+from components
+where facilityid = 1
 
 /* 5
 Mostrar tres medias que llamaremos:
@@ -74,6 +90,12 @@ Pati
 Serv
 */
 
+select 
+    distinct substr(spaces.name,0,4)
+from spaces,floors
+where spaces.floorid=floors.id and floors.facilityid=1
+order by 1 asc;
+
 /* 10
 Número de componentes por fecha de instalación del facility 1
 ordenados descendentemente por la fecha de instalación
@@ -83,6 +105,16 @@ Fecha   Componentes
 2021-03-23 34
 2021-03-03 232
 */
+
+select
+    count (name), installatedon
+from 
+    components
+where 
+    facilityid=1
+Group by installatedon
+order by installatedon desc;
+
 
 /* 11
 Un listado por año del número de componentes instalados del facility 1
@@ -118,10 +150,27 @@ Aseo 12
 Pasi 4
 */
 
+select
+    substr(spaces.name,1,4),
+    count(substr(spaces.name,1,4))
+from spaces
+where floorid=1
+group by substr(spaces.name,1,4)
+order by 1 asc
+;
+
 /*14
 Cuántos componentes de instalaron un Jueves
 en el facilityid 1
 */
+
+select
+    count(*), to_char(installatedon,'day')
+from
+    components
+where
+    facilityid=1 and to_char(installatedon,'day') like '%thursday%'    
+group by to_char(installatedon,'day');
 
 /*15
 Listar el id de planta concatenado con un guión
