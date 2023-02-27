@@ -14,11 +14,11 @@ id del espacio «7»
 id de tipo «78»
 guid «666000»
 */
-insert into components
-    (facilityid, name, description, serialnumber, installatedon, replacedon, barcode, creatorid, 
-    spaceid, typeid,assetidentifier),
+insert into cb_components
+    (facilityid,componentid,externalidentifier, name, description, serialnumber, installatedon, replacedon, 
+    warrantystarton, createdby, spaceid, typeid,assetidentifier,updatedby,createdon,updatedon),
 values
-(1,'Grifo_Grifo_030303',test insert,666333_eeefff,'2021_12_12',2021_11_11,666000,3,7,78,'666000')
+(1,6,9,'Grifo_Grifo_030303',test insert,666333_eeefff,'2021_12_12',2021_11_11,666000,3,7,78,'666000',2abc,3,5)
 
 /*
 Comprobar que se ven los datos insertados de forma conjunta con una JOIN
