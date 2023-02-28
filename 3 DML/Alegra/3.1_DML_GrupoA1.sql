@@ -14,6 +14,32 @@ id del espacio «7»
 id de tipo «78»
 guid «666000»
 */
+INSERT INTO components(
+    FACILITYID,
+    NAME,
+    DESCRIPTION,
+    SERIALNUMBER,
+    CREATEDAT,
+    WARRANTYSTARTON,
+    ASSETIDENTIFIER,
+    CREATORID,
+    SPACEID,
+    TYPEID,
+    EXTERNALIDENTIFIER
+    )
+    VALUES (
+    1,
+    'Grifo | Grifo | 030303',
+    'test insert',
+    '666333-eeefff',
+    to_date('2021-12-12','yyyy-mm-dd'),
+    to_date('2021-11-11','yyyy-mm-dd'),
+    '666000',
+    3,
+    7,
+    78,
+    '666000'
+    );
 
 /*
 Comprobar que se ven los datos insertados de forma conjunta con una JOIN
@@ -25,7 +51,10 @@ y además el nombre del espacio, nombre de la planta, nombre del tipo de compone
 /* 2
 Eliminar el componente creado.
 */
-
+DELETE 
+    FROM components
+    WHERE 
+    EXTERNALIDENTIFIER = '666000';
 /* 3
 Colocar como código de barras los 6 últimos caracteres del GUID 
 a todo componente de la planta 1 y 2 del facility 1.
