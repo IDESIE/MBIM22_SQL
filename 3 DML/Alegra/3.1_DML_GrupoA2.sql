@@ -64,9 +64,8 @@ UPDATE components
 SET components.warrantystarton = components.installatedon
 where
     components.facilityid=1 
-    and lower (components.name) like '%grifo%'
-    or lower (components.name) like '%lavabo%';
-commit;
+    and (lower (components.name) like '%grifo%'
+    or lower (components.name) like '%lavabo%');
 
 /* 5
 Anonimizar los datos personales: nombre, apellido, email, teléfono de los contactos
