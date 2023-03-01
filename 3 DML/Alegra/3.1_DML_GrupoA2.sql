@@ -42,7 +42,8 @@ where
     components.facilityid=1 
     and lower (components.name) like '%grifo%'
     or lower (components.name) like '%lavabo%';
-    
+commit;
+
 /* 5
 Anonimizar los datos personales: nombre, apellido, email, teléfono de los contactos
 */
