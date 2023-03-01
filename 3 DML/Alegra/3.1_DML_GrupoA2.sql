@@ -37,7 +37,7 @@ join cb_floors on cb_floors.floorid = cb_spaces.spaceid;
 Eliminar el componente creado.
 */
 
-rollback
+delete from cb_components where componentid=3
 
 /* 3
 Colocar como código de barras los 6 últimos caracteres del GUID 
