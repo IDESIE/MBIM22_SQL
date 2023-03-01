@@ -41,6 +41,10 @@ drop component;
 Colocar como código de barras los 6 últimos caracteres del GUID 
 a todo componente de la planta 1 y 2 del facility 1.
 */
+update components
+    set 
+where
+    facilityid= 1
 
 /* 4
 Modificar la fecha de garantia para que sea igual a la fecha de instalación
