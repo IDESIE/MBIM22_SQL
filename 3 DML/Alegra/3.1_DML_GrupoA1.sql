@@ -82,3 +82,6 @@ and (lower(name) is like 'grifo'
 /* 5
 Anonimizar los datos personales: nombre, apellido, email, teléfono de los contactos
 */
+
+update contacts 
+set givenname = null, familyname = null, email = id, phone = null;

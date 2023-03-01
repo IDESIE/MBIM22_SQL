@@ -146,7 +146,7 @@ cuyo volumen es mayor a 6 y menor a 9 de la planta con id = 1
 SELECT NAME NOMBRE, VOLUME VOLUMEN
 FROM SPACES
 WHERE FLOORID=1
-AND VOLUME BETWEEN 6 AND 9;
+AND VOLUME >6 AND VOLUME <9;
 /* 20
 Nombre, código de activo, número de serie de los componentes
 que no tengan espacio del facility 1
@@ -183,8 +183,10 @@ NAME LIKE '_s%';
 Lista de tipos de componente del facility 1 
 donde el nombre contiene el texto 'con'
 y no tienen vida útil indicada o fecha de garantia 
-*/
-falta
+*/ 
+SELECT NAME
+FROM COMPONENT_TYPES
+WHERE FACILITYID = 1 AND NAME LIKE %con% AND EXPECTEDLIFE = NULL OR WARRANTYDURATIONPARTS = NULL;
 /* 25
 Nombres de espacios y volumen
 pero como volumen una etiqueta que indique 
